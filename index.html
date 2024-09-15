@@ -60,7 +60,7 @@
         var engine = null;
         var scene = null;
         var sceneToRender = null;
-        ;
+        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
         var createScene = function () {
     // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
@@ -76,27 +76,28 @@
     // Default intensity is 1. Let's dim the light a small amount
     light.intensity = 0.7;
 
-    const roofMat = new BABYLON.StandardMaterial("roofMat");
-    roofMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/roof.jpg", scene);
-
-
-
-
     var mat1 = new BABYLON.StandardMaterial("mat1", scene);
-	mat1.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/Wk1cGEq.png", scene);
-	mat1.bumpTexture = new BABYLON.Texture("https://i.imgur.com/wGyk6os.png", scene);
+	mat1.diffuseTexture = new BABYLON.Texture("https://benjamin94773.github.io/WebGL/pruebaFondo2.jpg", scene);
+	mat1.bumpTexture = new BABYLON.Texture("https://benjamin94773.github.io/WebGL/pruebaFondo.jpg", scene);
+
+    var mat2 = new BABYLON.StandardMaterial("mat2", scene);
+	mat2.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/Wk1cGEq.png", scene);
+	mat2.bumpTexture = new BABYLON.Texture("https://i.imgur.com/wGyk6os.png", scene);
+
+    var mat3 = new BABYLON.StandardMaterial("mat3", scene);
+	mat3.diffuseTexture = new BABYLON.Texture("https://benjamin94773.github.io/WebGL/gabriel-xavier-dif.png", scene);
+	mat3.bumpTexture = new BABYLON.Texture("https://benjamin94773.github.io/WebGL/gabriel-xavier-nor.png", scene);
 
 
-
-    BABYLON.SceneLoader.ImportMeshAsync("", "https://aannewball.github.io/myCoolBabylonApp/", "mico.glb").then((result) => {
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://benjamin94773.github.io/WebGL/", "terreno.glb").then((result) => {
     	result.meshes[1].position.x = 0;
-        result.meshes[1].rotate  = new BABYLON.Vector3(0, 45, 0);
-        result.meshes[1].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-    
-
-
+        result.meshes[1].material = mat3;
     });
 
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://benjamin94773.github.io/WebGL/", "mico.glb").then((result) => {
+    	result.meshes[1].position.y = 20;
+        result.meshes[1].material = mat3;
+    });
 
 
 
@@ -109,30 +110,6 @@
                     var asyncEngineCreation = async function() {
                         try {
                         return createDefaultEngine();
-                        } catch(e) {
-                        console.log("the available createEngine function failed. Creating the default engine instead");
-                        return createDefaultEngine();
-                        }
-                    }
-
-                    window.engine = await asyncEngineCreation();
-        if (!engine) throw 'engine should not be null.';
-        startRenderLoop(engine, canvas);
-        window.scene = createScene();};
-        initFunction().then(() => {sceneToRender = scene                    
-        });
-
-        // Resize
-        window.addEventListener("resize", function () {
-            engine.resize();
-        });
-                window.initFunction = async function() {
-                    
-                    
-                    
-                    var asyncEngineCreation = async function() {
-                        try {
-                        return createEngine();
                         } catch(e) {
                         console.log("the available createEngine function failed. Creating the default engine instead");
                         return createDefaultEngine();
