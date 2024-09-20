@@ -86,21 +86,31 @@
 
     var mat3 = new BABYLON.StandardMaterial("mat3", scene);
 	mat3.diffuseTexture = new BABYLON.Texture("https://benjamin94773.github.io/WebGL/gabriel-xavier-dif.png", scene);
-	mat3.bumpTexture = new BABYLON.Texture("https://benjamin94773.github.io/WebGL/gabriel-xavier-nor.png", scene);
+	mat3.bumpTexture = new BABYLON.Texture("https://benjamin94773.github.io/WebGL/pruebaFondo.jpg", scene);
 
 
-    BABYLON.SceneLoader.ImportMeshAsync("", "https://benjamin94773.github.io/WebGL/", "terreno.glb").then((result) => {
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://benjamin94773.github.io/WebGL/", "suelo.glb").then((result) => {
     	result.meshes[1].position.x = 0;
+        result.meshes[1].position.y = -60;
+        result.meshes[1].position.z = 20;
+        result.meshes[1].scaling = new BABYLON.Vector3(90, 90, 90);
         result.meshes[1].material = mat3;
     });
-
+    /*
     BABYLON.SceneLoader.ImportMeshAsync("", "https://benjamin94773.github.io/WebGL/", "mico.glb").then((result) => {
     	result.meshes[1].position.y = 20;
         result.meshes[1].material = mat3;
     });
-
-
-
+    */
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://benjamin94773.github.io/WebGL/", "persona1.glb").then((result) => {
+    	result.meshes[1].position.x = 0;
+    });
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://benjamin94773.github.io/WebGL/", "torre.glb").then((result) => {
+        result.meshes[1].position.x = 10;
+        result.meshes[1].position.y = -40;
+        result.meshes[1].position.z = 140;
+        result.meshes[1].scaling = new BABYLON.Vector3(5, 5, 5);
+    });
     return scene;
 };
                 window.initFunction = async function() {
