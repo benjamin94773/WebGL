@@ -110,6 +110,8 @@
         result.meshes[1].position.y = -40;
         result.meshes[1].position.z = 140;
         result.meshes[1].scaling = new BABYLON.Vector3(5, 5, 5);
+        result.meshes[1].rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+        
     });
     return scene;
 };
